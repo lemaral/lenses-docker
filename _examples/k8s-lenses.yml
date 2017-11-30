@@ -22,10 +22,8 @@ spec:
         value: kafka:2181
       - name: LENSES_SCHEMA_REGISTRY_URLS
         value: http://kafka:8081
-      - name: LENSES_CONNECT
-        value: '[{default: "http://kafka:8083"}]'
-      - name: LENSES_JMX_BROKERS
-        value: kafka:9581
+      - name: LENSES_CONNECT_CLUSTERs
+        value: '[{name:"default",url:"http://kafka:8083",statuses:"connect-statused",configs:"connect-configs",offsets: "connect-offsets"}]'
       - name: LENSES_JMX_SCHEMA_REGISTRY
         value: kafka:9582
       - name: LENSES_JMX_CONNECT

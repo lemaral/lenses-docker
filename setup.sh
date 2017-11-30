@@ -13,7 +13,7 @@ OPTS_NEEDQUOTE="$OPTS_NEEDQUOTE LENSES_SECURITY_LDAP_GROUP_EXTRACT_REGEX"
 # that we process (env var that starts with 'LENSES_') and put into the conf file. Although lenses will ignore the settings,
 # these settings usually include characters that need quotes, that now we also set explicitly which fields do not need
 # quotes. Later for settings that do not much either of OPTS_NEEDQUOTE and OPTS_NEEDNOQUOTE we try to autodetect if quotes are needed.
-OPTS_NEEDNOQUOTE="LENSES_CONNECT LENSES_CONNECT_CLUSTERS LENSES_JMX_CONNECT LENSES_SECURITY_USERS LENSES_UI_CONFIG_DISPLAY LENSES_KAFKA_TOPICS"
+OPTS_NEEDNOQUOTE="LENSES_CONNECT LENSES_CONNECT_CLUSTERS LENSES_JMX_CONNECT LENSES_SECURITY_USERS LENSES_UI_CONFIG_DISPLAY LENSES_KAFKA_TOPICS LENSES_SQL_CONNECT_CLUSTERS"
 OPTS_SENSITIVE="LENSES_SECURITY_USERS LENSES_SECURITY_LDAP_USER LENSES_SECURITY_LDAP_PASSWORD LICENSE LICENSE_URL"
 
 # Load settings from files
@@ -43,11 +43,8 @@ done
 [[ -z $LENSES_SCHEMA_REGISTRY_URLS ]]  && export LENSES_SCHEMA_REGISTRY_URLS='http://localhost:8081' \
     && echo "Setting LENSES_SCHEMA_REGISTRY_URLS='http://localhost:8081'. Override by setting the environment variable."
 
-[[ -z $LENSES_CONNECT ]] && export LENSES_CONNECT='[{default:"http://localhost:8083"}]' \
-    && echo "Setting LENSES_CONNECT='[{default:\"http://localhost:8083\"}]'. Override by setting the environment variable."
-
-[[ -z $LENSES_JMX_BROKERS ]] \
-    && echo "LENSES_JMX_BROKERS is not set. Some functionality won't be available."
+[[ -z $LENSES_CONNECT_CLUSTERS ]] && export LENSES_CONNECT_CLUSTERS='[{name:"default",url:"http://localhost:8083",statuses:"connect-statused",configs:"connect-configs",offsets: "connect-offsets"}]' \
+    && echo 'Setting LENSES_CONNECT_CLUSTERS='\''[{name:"default",url:"http://localhost:8083",statuses:"connect-statused",configs:"connect-configs",offsets: "connect-offsets"}]'\''. Override by setting the environment variable.'
 
 [[ -z $LENSES_JMX_SCHEMA_REGISTRY ]] \
     && echo "LENSES_JMX_SCHEMA_REGISTRY is not set. Some functionality won't be available."
